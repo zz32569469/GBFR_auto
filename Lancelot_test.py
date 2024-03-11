@@ -6,7 +6,8 @@ from ahk import AHK
 
 pdi.FAILSAFE=False
 ahk=AHK()
-target = fr'GBFR_auto\save\scr.png'
+target = fr'path'
+tot=1
 
 while True:
     windows = gw.getAllTitles()
@@ -19,23 +20,28 @@ while True:
         time.sleep(5)
 
 while True:
-    pag.screenshot(target)
-    if Imgfind.locate(target, r'GBFR_auto\save\the_end.png') is not None:
+    pag.screenshot(fr'{target}\scr.png')
+    if Imgfind.locate(fr'{target}\scr.png', fr'{target}\the_end.png') is not None:
+        tot+=1
+        print(f'已完成{tot}次')
         while True:
-            pag.screenshot(target)
-            time.sleep(10)
-            if Imgfind.locate(target, r'GBFR_auto\save\mvp.png') is not None:
+            pag.screenshot(fr'{target}\scr.png')
+            time.sleep(2)
+            if Imgfind.locate(fr'{target}\scr.png', fr'{target}\mvp.png') is not None:
+                time.sleep(8)
                 pdi.press('enter')
                 time.sleep(10)
-                if Imgfind.locate(target, r'GBFR_auto\save\continue.png') is not None:
-                    pdi.press('s')
-                    time.sleep(3)
+                if tot%10==0:
+                    pag.screenshot(fr'{target}\ten.png')
+                    time.sleep(5)
+                    pdi.press('w')
+                    time.sleep(5)
                     pdi.press('enter')
                 else:
                     pdi.press('enter')
                 
-                    pag.screenshot(target)
-                    if Imgfind.locate(target, r'GBFR_auto\save\confirm_to_end.png') is not None:
+                    pag.screenshot(fr'{target}\scr.png')
+                    if Imgfind.locate(fr'{target}\scr.png', fr'{target}\confirm_to_end.png') is not None:
                         pdi.press('enter')
                         break
                     else:
@@ -44,7 +50,7 @@ while True:
                 pass
             
     else:
-        for _ in range(40):
+        for _ in range(30):
             ahk.right_click()
             time.sleep(0.33)
     
