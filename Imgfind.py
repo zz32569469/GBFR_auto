@@ -1,6 +1,6 @@
 import cv2
 
-def locate(source, target, acc=0.9):
+def locate(source, target, acc=0.8):
     screen = cv2.imread(fr'{source}')
     wanted = cv2.imread(fr'{target}')
     
